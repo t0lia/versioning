@@ -1,19 +1,19 @@
-name: tag minor
+name: tag major
 
 on:
   workflow_dispatch:
 
 jobs:
 
-  tag-minor:
+  tag-major:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Increment minor version
-        id: increment_minor_version
+      - name: Increment major version
+        id: increment_major_version
         run: |
           git fetch --tags
           git tag -l
@@ -23,15 +23,16 @@ jobs:
           major=${parts[0]}
           minor=${parts[1]}
           patch=${parts[2]}
-          # Increment the minor version
-          minor=$((minor+1))
-          # Reset patch version to 0
+          # Increment the major version
+          major=$((major+1))
+          # Reset minor and patch versions to 0
+          minor=0
           patch=0
           newTag="v$major.$minor.$patch"
           echo "newTag=$newTag" >> $GITHUB_ENV
 
-      - name: Create minor tag
-        id: create_minor_tag
+      - name: Create major tag
+        id: create_major_tag
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
