@@ -14,11 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set Git Config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@users.noreply.github.com"
-
       - name: Increment Version
         id: increment_version
         run: |
@@ -37,5 +32,7 @@ jobs:
       - name: Create Release
         id: create_release
         run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@users.noreply.github.com"
           git tag -a ${{ env.newTag }} -m "Release ${{ env.newTag }}"
           git push origin ${{ env.newTag }}
