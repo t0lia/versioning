@@ -19,6 +19,7 @@ jobs:
 
       - name: Increment Version
         run: |
+          git fetch --tags
           git tag -l
           latestTag=$(git describe --tags --abbrev=0)
           version=${latestTag//v/}
