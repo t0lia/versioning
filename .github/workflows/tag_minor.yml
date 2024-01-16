@@ -1,0 +1,42 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Increment Version
+        id: increment_version
+        run: |
+          git fetch --tags
+          git tag -l
+          latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          version=${latestTag//v/}
+          IFS='.' read -ra parts <<< "$version"
+          major=${parts[0]}
+          minor=${parts[1]}
+          patch=${parts[2]}
+          # Increment the minor version
+          minor=$((minor+1))
+          # Reset patch version to 0
+          patch=0
+          newTag="v$major.$minor.$patch"
+          echo "newTag=$newTag" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag -a ${{ env.newTag }} -m "Release ${{ env.newTag }}"
+          git push origin ${{ env.newTag }}
