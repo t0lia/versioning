@@ -3,11 +3,11 @@ name: tag patch
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 
 jobs:
 
-  release:
+  tag-patch:
     runs-on: ubuntu-latest
 
     steps:
