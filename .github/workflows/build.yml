@@ -3,7 +3,9 @@ name: Build and Release
 on:
   pull_request:
     types:
-      - closed
+      - synchronize
+#    types:
+#      - closed
 
 jobs:
 
@@ -16,6 +18,7 @@ jobs:
 
       - name: Increment Version
         run: |
+          git tag -l
           latestTag=$(git describe --tags --abbrev=0)
           version=${latestTag//v/}
           IFS='.' read -ra parts <<< "$version"
