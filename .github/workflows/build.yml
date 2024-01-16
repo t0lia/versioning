@@ -21,7 +21,9 @@ jobs:
         run: |
           git fetch --tags
           git tag -l
-          latestTag=$(git describe --tags --abbrev=0)
+#          get latest tag
+          latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+#          latestTag=$(git describe --tags --abbrev=0)
           version=${latestTag//v/}
           IFS='.' read -ra parts <<< "$version"
           major=${parts[0]}
