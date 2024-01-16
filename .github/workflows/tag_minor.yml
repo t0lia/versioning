@@ -27,7 +27,7 @@ jobs:
           minor=$((minor+1))
           # Reset patch version to 0
           patch=0
-          newTag="v$major.$minor.$patch"
+          newTag="pre_v$major.$minor.$patch"
           echo "newTag=$newTag" >> $GITHUB_ENV
 
       - name: Create minor tag
