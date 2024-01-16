@@ -37,10 +37,6 @@ jobs:
       - name: Create patch tag
         id: create_patch_tag
         run: |
-
-      - name: Create patch tag
-        id: create_patch_tag
-        run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
           previousTag=$(git describe --tags `git rev-list --tags --max-count=1^`)
