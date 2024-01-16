@@ -28,7 +28,7 @@ jobs:
           # Reset minor and patch versions to 0
           minor=0
           patch=0
-          newTag="v$major.$minor.$patch"
+          newTag="pre_v$major.$minor.$patch"
           echo "newTag=$newTag" >> $GITHUB_ENV
 
       - name: Create major tag
