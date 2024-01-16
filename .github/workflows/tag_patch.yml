@@ -14,8 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Increment Version
-        id: increment_version
+      - name: Increment patch version
+        id: increment_patch_version
         run: |
           git fetch --tags
           git tag -l
@@ -29,8 +29,8 @@ jobs:
           newTag="v$major.$minor.$patch"
           echo "newTag=$newTag" >> $GITHUB_ENV
 
-      - name: Create Release
-        id: create_release
+      - name: Create patch tag
+        id: create_patch_tag
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
