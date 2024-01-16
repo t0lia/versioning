@@ -29,7 +29,6 @@ jobs:
           newTag="v$major.$minor.$patch"
           echo "newTag=$newTag" >> $GITHUB_ENV
 
-
       - name: Create Release
         id: create_release
         run: |
